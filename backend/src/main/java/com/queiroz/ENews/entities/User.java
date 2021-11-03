@@ -22,6 +22,9 @@ public class User implements Serializable {
     @JoinTable(name = "tb_user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
+    @OneToMany(mappedBy = "user")
+    private Set<Notifications> notifications = new HashSet<>();
+
     public User() {
     }
 
@@ -35,6 +38,10 @@ public class User implements Serializable {
 
     public Long getId() {
         return id;
+    }
+
+    public Set<Notifications> getNotifications() {
+        return notifications;
     }
 
     public Set<Role> getRoles() {
