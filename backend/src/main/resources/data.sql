@@ -9,3 +9,9 @@ INSERT INTO tb_role (authority) VALUES ('ROLE_ADMIN');
 INSERT INTO tb_user_role (user_id, role_id) VALUES (1, 1);
 INSERT INTO tb_user_role (user_id, role_id) VALUES (2, 2);
 INSERT INTO tb_user_role (user_id, role_id) VALUES (3, 3);
+
+INSERT INTO tb_section(text, image, subject) VALUES ('Novidades no Counter-Strike', null, 'Valve anunciou novo patch no CS');
+INSERT INTO tb_section(text, image, subject) VALUES ('Novidades no Dota', null, 'Valve anunciou novo patch no Dota');
+
+INSERT INTO tb_news(text, moment, image, subject, section_id) VALUES('Novo patch no CS vem com tudo', TIMESTAMP WITH TIME ZONE '2020-07-14T10:00:00Z', null, 'CS', 1);
+INSERT INTO tb_news(text, moment, image, subject, section_id) VALUES('Novo patch no Dota vem com tudo', TIMESTAMP WITH TIME ZONE '2020-07-14T10:00:00Z', null, 'DOTA', 2);

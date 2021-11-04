@@ -1,5 +1,7 @@
 package com.queiroz.ENews.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
@@ -72,6 +74,7 @@ public class News implements Serializable {
         this.subject = subject;
     }
 
+    @JsonIgnore
     public Section getSection() {
         return section;
     }
