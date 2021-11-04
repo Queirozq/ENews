@@ -13,7 +13,9 @@ public class News implements Serializable {
 
     @Id
     private Long id;
+    @Column(columnDefinition = "TEXT")
     private String text;
+    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant moment;
     private String image;
     private String subject;

@@ -7,6 +7,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class SectionService {
 
@@ -15,5 +17,10 @@ public class SectionService {
 
     public Page<Section> findAllPaged(Pageable pageable){
         return repository.findAll(pageable);
+    }
+
+    public Section findById(Long id){
+        Optional<Section> section = repository.findById(id);
+        return section.get();
     }
 }
