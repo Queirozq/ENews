@@ -12,6 +12,7 @@ import java.util.Objects;
 public class News implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(columnDefinition = "TEXT")
     private String text;
@@ -20,20 +21,16 @@ public class News implements Serializable {
     private String image;
     private String subject;
 
-    @OneToOne
-    @MapsId
-    private Section section;
 
     public News() {
     }
 
-    public News(Long id, String text, Instant moment, String image, String subject, Section section) {
+    public News(Long id, String text, Instant moment, String image, String subject) {
         this.id = id;
         this.text = text;
         this.moment = moment;
         this.image = image;
         this.subject = subject;
-        this.section = section;
     }
 
     public Long getId() {
@@ -74,15 +71,6 @@ public class News implements Serializable {
 
     public void setSubject(String subject) {
         this.subject = subject;
-    }
-
-    @JsonIgnore
-    public Section getSection() {
-        return section;
-    }
-
-    public void setSection(Section section) {
-        this.section = section;
     }
 
     @Override
