@@ -3,6 +3,7 @@ package com.queiroz.ENews.services;
 import com.queiroz.ENews.DTO.NewsDTO;
 import com.queiroz.ENews.entities.News;
 import com.queiroz.ENews.repositories.NewsRepository;
+import com.queiroz.ENews.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,6 +28,7 @@ public class NewsService {
     @Transactional(readOnly = true)
     public NewsDTO findById(Long id){
         Optional<News> news = repository.findById(id);
-        return new NewsDTO(news.get());
+        News obj = news.orElseThrow(() -> new ResourceNotFoundException("Id não encontrado"));
+        return new NewsDTO(obj);
     }
 }

@@ -2,15 +2,19 @@ package com.queiroz.ENews.DTO;
 
 import com.queiroz.ENews.entities.News;
 
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.time.Instant;
 
 public class NewsDTO implements Serializable {
 
     private Long id;
+    @NotBlank(message = "Não pode ser vazio")
     private String text;
+    @NotBlank(message = "Precisa colocar uma data")
     private Instant moment;
     private String image;
+    @NotBlank(message = "Precisa de um assunto")
     private String subject;
 
     public NewsDTO() {
