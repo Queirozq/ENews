@@ -10,5 +10,5 @@ INSERT INTO tb_user_role (user_id, role_id) VALUES (1, 1);
 INSERT INTO tb_user_role (user_id, role_id) VALUES (2, 2);
 INSERT INTO tb_user_role (user_id, role_id) VALUES (3, 3);
 
-INSERT INTO tb_news(text, moment, image, subject) VALUES('Novo patch no CS vem com tudo', TIMESTAMP WITH TIME ZONE '2020-07-14T10:00:00Z', null, 'CS');
-INSERT INTO tb_news(text, moment, image, subject) VALUES('Novo patch no Dota vem com tudo', TIMESTAMP WITH TIME ZONE '2020-07-14T10:00:00Z', null, 'DOTA');
+INSERT INTO tb_news(text, created_At, updated_At , image, subject) VALUES('Novo patch no CS vem com tudo','2021-02-04T10:00:25Z', null , null, 'CS');
+INSERT INTO tb_news(text, created_At, updated_At, image, subject) VALUES('Novo patch no Dota vem com tudo', '2020-07-14T10:00:00Z', null,null, 'DOTA');

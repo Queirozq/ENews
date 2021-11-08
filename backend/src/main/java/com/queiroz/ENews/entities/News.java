@@ -1,14 +1,18 @@
 package com.queiroz.ENews.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
 @Table(name = "tb_news")
+@EntityListeners(AuditingEntityListener.class)
 public class News implements Serializable {
 
     @Id
@@ -16,8 +20,12 @@ public class News implements Serializable {
     private Long id;
     @Column(columnDefinition = "TEXT")
     private String text;
-    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
-    private Instant moment;
+    @CreatedDate
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime createdAt;
+    @LastModifiedDate
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime updatedAt;
     private String image;
     private String subject;
 
@@ -25,10 +33,11 @@ public class News implements Serializable {
     public News() {
     }
 
-    public News(Long id, String text, Instant moment, String image, String subject) {
+    public News(Long id, String text, LocalDateTime createdAt,LocalDateTime updatedAt ,String image, String subject) {
         this.id = id;
         this.text = text;
-        this.moment = moment;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
         this.image = image;
         this.subject = subject;
     }
@@ -49,16 +58,24 @@ public class News implements Serializable {
         this.text = text;
     }
 
-    public Instant getMoment() {
-        return moment;
-    }
-
-    public void setMoment(Instant moment) {
-        this.moment = moment;
-    }
-
     public String getImage() {
         return image;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     public void setImage(String image) {

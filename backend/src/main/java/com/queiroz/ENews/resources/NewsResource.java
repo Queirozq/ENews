@@ -1,15 +1,16 @@
 package com.queiroz.ENews.resources;
 
 import com.queiroz.ENews.DTO.NewsDTO;
+import com.queiroz.ENews.entities.News;
 import com.queiroz.ENews.services.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
 
 @RestController
 @RequestMapping(value = "/news")
@@ -25,8 +26,21 @@ public class NewsResource {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<NewsDTO> findById(@PathVariable Long id){
-        NewsDTO newsDTO = service.findById(id);
-        return ResponseEntity.ok().body(newsDTO);
+    public ResponseEntity<News> findById(@PathVariable Long id){
+        News news = service.findById(id);
+        return ResponseEntity.ok().body(news);
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<NewsDTO> update(@PathVariable Long id, @RequestBody NewsDTO obj){
+        obj = service.update(id, obj);
+        return ResponseEntity.ok().body(obj);
+    }
+
+    @PostMapping
+    public ResponseEntity<NewsDTO> insert(@RequestBody NewsDTO obj){
+        obj = service.insert(obj);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+        return ResponseEntity.created(uri).body(obj);
     }
 }
