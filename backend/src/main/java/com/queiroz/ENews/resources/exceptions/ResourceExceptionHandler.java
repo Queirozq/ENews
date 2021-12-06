@@ -2,6 +2,7 @@ package com.queiroz.ENews.resources.exceptions;
 
 
 import com.queiroz.ENews.services.exceptions.DatabaseException;
+import com.queiroz.ENews.services.exceptions.EmailException;
 import com.queiroz.ENews.services.exceptions.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,5 +40,12 @@ public class ResourceExceptionHandler {
             error.addError(x.getField(), x.getDefaultMessage());
         }
         return ResponseEntity.status(status).body(error);
+    }
+
+    @ExceptionHandler(EmailException.class)
+    public ResponseEntity<StandardError> email(EmailException e, HttpServletRequest request){
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        StandardError err = new StandardError(Instant.now(), status.value(), "Email Error", e.getMessage(), request.getRequestURI());
+        return ResponseEntity.status(status).body(err);
     }
 }
