@@ -2,12 +2,14 @@ package com.queiroz.ENews.resources;
 
 import com.queiroz.ENews.DTO.NewsDTO;
 import com.queiroz.ENews.entities.News;
+import com.queiroz.ENews.entities.UriDTO;
 import com.queiroz.ENews.services.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
@@ -42,5 +44,11 @@ public class NewsResource {
         obj = service.insert(obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
         return ResponseEntity.created(uri).body(obj);
+    }
+
+    @PostMapping(value = "/image")
+    public ResponseEntity<UriDTO> uploadImage(@RequestParam("file")MultipartFile file){
+        UriDTO uriDTO = service.uploadFile(file);
+        return ResponseEntity.ok().body(uriDTO);
     }
 }
