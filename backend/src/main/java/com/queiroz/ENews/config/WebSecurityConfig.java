@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -28,7 +29,7 @@ import java.util.Arrays;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
-    private static final String[] PUBLIC = {"/oauth/token", "/h2-console/**", "/news/**", "/emails/**"};
+    private static final String[] PUBLIC = {"/oauth/token", "/h2-console/**", "/news/**","/emails/**"};
 
     private static final String[] ADMIN = {"/users/**"};
 
@@ -63,7 +64,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers(PUBLIC).permitAll()
-                .antMatchers(ADMIN).hasAnyRole("ADM")
+                .antMatchers(ADMIN).hasAuthority("ROLE_ADM")
                 .anyRequest().authenticated()
                 .and()
                 .oauth2ResourceServer()
