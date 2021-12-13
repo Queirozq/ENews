@@ -29,9 +29,11 @@ import java.util.Arrays;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
-    private static final String[] PUBLIC = {"/oauth/token", "/h2-console/**", "/news/**","/emails/**"};
+    private static final String[] PUBLIC = {"/h2-console/**", "/oauth/token"};
 
-    private static final String[] ADMIN = {"/users/**"};
+    private static final String[] NEWS = {"/news/**"};
+
+    private static final String[] ADMIN = {"/users/**", "/emails/**", "/news/**"};
 
     @Autowired
     private UserDetailsService uds;
@@ -64,6 +66,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers(PUBLIC).permitAll()
+                .antMatchers(HttpMethod.GET, NEWS).permitAll()
+                .antMatchers(HttpMethod.POST, NEWS).hasAuthority("ROLE_ADM")
                 .antMatchers(ADMIN).hasAuthority("ROLE_ADM")
                 .anyRequest().authenticated()
                 .and()
